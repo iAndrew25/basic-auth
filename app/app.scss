@@ -1,0 +1,8 @@
+$grey-background: #000;
+
+@import './authentication/authentication';
+@import './dashboard/dashboard';
+
+body {
+	background-color: $grey-background;
+}

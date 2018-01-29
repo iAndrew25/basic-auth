@@ -1,6 +1,3 @@
-# Basic React JS & SASS setup
-Starting the application:
-``npm run start``
+# Basic-Auth
 
-Runing production build:
-``npm run build``
+Basic authentication (login and signup) using React JS and PHP.

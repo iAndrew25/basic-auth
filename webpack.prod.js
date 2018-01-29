@@ -1,17 +1,16 @@
 const webpack = require('webpack'),
 	path = require('path'),
-	ExtractTextPlugin = require('extract-text-webpack-plugin'),
 	HtmlWebpackPlugin = require('html-webpack-plugin'),
-	ReactRootPlugin = require('html-webpack-react-root-plugin'),
+	ExtractTextPlugin = require('extract-text-webpack-plugin'),
+	UglifyJSPlugin = require('uglifyjs-webpack-plugin'),
 	OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
 	entry: './index.js',
 	output: {
-		path: path.resolve(__dirname, 'client/build'),
+		path: path.resolve(__dirname, 'build'),
 		filename: 'script.js'
 	},
-	watch: true,
 	resolve: {
 		alias: {
 			components: path.resolve(__dirname, 'app/commons/components'),
@@ -37,30 +36,19 @@ module.exports = {
 		}],
 	},
 	plugins: [
-		new webpack.ProvidePlugin({
-			'React': 'react',
-		}),
+		new webpack.ProvidePlugin({'React': 'react'}),
 		new ExtractTextPlugin('style.css'),
-		new HtmlWebpackPlugin(),
-		new ReactRootPlugin,
-		new webpack.LoaderOptionsPlugin({
-			minimize: true,
-			debug: true
-		}),
-/*		new webpack.optimize.UglifyJsPlugin({
-			beautify: false,
-			mangle: {
-				screw_ie8: true,
-				keep_fnames: true
-			},
-			compress: {
-				screw_ie8: true
-			},
-			comments: false
+		new HtmlWebpackPlugin({
+			template: 'index-template.html',
+			inject: 'body',
 		}),
 		new OptimizeCssAssetsPlugin({
-			assetNameRegExp: /\.style\.css$/g,
+			assetNameRegExp: /\.style\.css$/g, 
 			canPrint: true
-		})*/
+		}),
+		new UglifyJSPlugin(),
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': JSON.stringify('production')
+		})
 	],
 }

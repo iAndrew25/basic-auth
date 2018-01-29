@@ -1,7 +1,6 @@
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {removeToken, isTokenSet} from 'utils/auth';
 import Authentication from './authentication/authentication';
-import Dashboard from './dashboard/dashboard';
 
 export default function() {
 
@@ -30,7 +29,7 @@ export default function() {
 		<Switch>
 			<Route exact path='/' render={() => isLogged()}/>
 			<Route exact path='/logout' render={() => logout()}/>
-			<Route exact path='/dashboard' render={() => privateRoute(<Dashboard />)}/>
+			<Route exact path='/dashboard' render={() => privateRoute(<Authentication />)}/>
 			<Route component={() => (<div>404 - GTFO</div>)}/>
 		</Switch>
 	)

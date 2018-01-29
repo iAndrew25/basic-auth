@@ -1,9 +1,7 @@
 import Login from './log-in/log-in';
 import Signup from './sign-up/sign-up';
-import Notify from 'components/notify/notify';
 import {setToken} from 'utils/auth';
 import {login, signup} from './authentication-service';
-import InlineNotify from 'components/inline-notify/inline-notify';
 import {Redirect} from 'react-router-dom';
 
 import {getUser, setUser} from 'utils/user';
@@ -20,8 +18,6 @@ export default class Authentication extends React.Component {
 			name: ''
 		}
 
-		this.notifyApi = this.notifyApi.bind(this);
-		this.inlineNotifyApi = this.inlineNotifyApi.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.toggleDisplay = this.toggleDisplay.bind(this);
 		this.handleSignup = this.handleSignup.bind(this)
@@ -30,16 +26,6 @@ export default class Authentication extends React.Component {
 
 	toggleDisplay() {
 		this.setState(state => ({displayLogin: !state.displayLogin}));
-/*		notify.addNotify(`You received a new message from GAG DGkn dDG.`);
-		inlineNotify.success(`Salut`);*/
-	}
-
-	notifyApi(api) {
-		notify = api;
-	}
-
-	inlineNotifyApi(api) {
-		inlineNotify = api;
 	}
 
 	handleSignup() {
@@ -80,9 +66,6 @@ export default class Authentication extends React.Component {
 						name={name}
 						handleSignup={this.handleSignup}
 						handleChange={this.handleChange} />}
-
-				<Notify notifyApi={this.notifyApi} />
-				<InlineNotify inlineNotifyApi={this.inlineNotifyApi} />
 
 				{this.state.toLogin ? <Redirect to="/dashboard" /> : ''}
 

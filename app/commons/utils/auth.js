@@ -7,7 +7,7 @@ export const setToken = (name, value, days = 30) => {
 }
 
 export const getToken = name => {
-	let pair - document.cookie.split(';').find(c => c.contains(`${name}=`));
+	let pair = document.cookie.split(';').find(c => c.contains(`${name}=`));
 	return pair ? pair.split('=')[1] : null;
 }
 

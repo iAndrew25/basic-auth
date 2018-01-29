@@ -1,7 +1,7 @@
-import './app/app.scss';
 import ReactDOM from 'react-dom';
-import Routes from './app/routes';
 import { BrowserRouter } from 'react-router-dom';
+import Routes from './app/routes';
+import './style.scss';
 
 ReactDOM.render((
 	<BrowserRouter>

@@ -1,3 +1,3 @@
 # Basic-Auth
 
-Basic authentication (login and signup) using Ract JS and PHP.
+Basic authentication (login and signup) using React JS and PHP.

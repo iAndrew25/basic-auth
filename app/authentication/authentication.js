@@ -4,10 +4,6 @@ import {setToken} from 'utils/auth';
 import {login, signup} from './authentication-service';
 import {Redirect} from 'react-router-dom';
 
-import {getUser, setUser} from 'utils/user';
-
-let notify, inlineNotify;
-
 export default class Authentication extends React.Component {
 	constructor(props) {
 		super(props);
@@ -30,20 +26,20 @@ export default class Authentication extends React.Component {
 
 	handleSignup() {
 		let {email, name} = this.state;
-		signup(email, name).then(data => {
-			console.log('signup', data)
-			inlineNotify.success(data.message);
-		});
+		// signup(email, name).then(data => {
+		// 	console.log('signup', data)
+		// 	inlineNotify.success(data.message);
+		// });
 	}
 
 	handleLogin() {
 		let {email, password} = this.state;
-		login(email, password).then(data => {
-			console.log('login', data);
-			setToken(data.token);
-			setUser(data.user);
-			this.setState({toLogin: data.success});
-		});
+		// login(email, password).then(data => {
+		// 	console.log('login', data);
+		// 	setToken(data.token);
+		// 	setUser(data.user);
+		// 	this.setState({toLogin: data.success});
+		// });
 	}
 
 	handleChange(key, value) {

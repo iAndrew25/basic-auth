@@ -50,28 +50,25 @@ export default class Authentication extends React.Component {
 		let {email, name, password, toggleDisplay, displayLogin} = this.state;
 
 		return(
-			<div className="authenticate-box">
-				{displayLogin ? 
-					<Login 
-						email={email}
-						password={password}
-						handleLogin={this.handleLogin}
-						handleChange={this.handleChange} /> : 
-					<Signup 
-						email={email}
-						name={name}
-						handleSignup={this.handleSignup}
-						handleChange={this.handleChange} />}
 
-				{this.state.toLogin ? <Redirect to="/dashboard" /> : ''}
+			<div className="card border-primary authenticate-box">
+				<div className="card-body text-primary">
+					{displayLogin ? 
+						<Login 
+							email={email}
+							password={password}
+							toggleDisplay={this.toggleDisplay}
+							handleLogin={this.handleLogin}
+							handleChange={this.handleChange} /> : 
+						<Signup 
+							email={email}
+							name={name}
+							toggleDisplay={this.toggleDisplay}
+							handleSignup={this.handleSignup}
+							handleChange={this.handleChange} />}
 
-				{displayLogin ? 
-					<div className="sign-up-now">Don't have an account yet? 
-						<span onClick={() => this.toggleDisplay()}> Signup Now</span>
-					</div> : 
-					<div className="sign-up-now">Got an account? 
-						<span onClick={() => this.toggleDisplay()}> Login Now</span>
-					</div>}
+					{this.state.toLogin ? <Redirect to="/dashboard" /> : ''}
+				</div>
 			</div>
 		)		
 	}

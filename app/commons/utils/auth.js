@@ -1,4 +1,4 @@
-export const setToken = (name = 'tokenId', value, days = 30) => {
+export const setToken = (value, name = 'tokenId', days = 30) => {
 	let date = new Date();
 	date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
 	let expires = '; expires=' + date.toGMTString();
@@ -11,5 +11,5 @@ export const getToken = (name = 'tokenId') => {
 	return pair ? pair.split('=')[1] : null;
 }
 
-export const removeToken = (name = 'tokenId') => setToken(name, '', -1);
+export const removeToken = (name = 'tokenId') => setToken('', name, -1);
 export const isTokenSet = (name = 'tokenId') => Boolean(getToken(name));

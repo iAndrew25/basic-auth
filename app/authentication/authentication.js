@@ -1,6 +1,6 @@
 import Login from './log-in/log-in';
 import Signup from './sign-up/sign-up';
-import {setToken} from 'utils/auth';
+import {setToken} from 'utils/tokens';
 import {login, signup} from './authentication-service';
 import {Redirect} from 'react-router-dom';
 

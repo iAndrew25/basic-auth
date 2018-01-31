@@ -1,6 +1,6 @@
 import Header from './header/header';
 import Body from './body/body';
-import {removeToken} from './../commons/utils/auth';
+import {logout} from './../commons/utils/auth';
 
 export default class Dashboard extends React.Component {
 	constructor(props) {
@@ -13,7 +13,7 @@ export default class Dashboard extends React.Component {
 	render() {
 		return (
 			<div>
-				<Header logout={removeToken} />
+				<Header logout={logout} />
 				<Body />
 			</div>
 		)

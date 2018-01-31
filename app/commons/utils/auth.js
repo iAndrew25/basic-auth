@@ -1,15 +1,12 @@
-export const setToken = (value, name = 'tokenId', days = 30) => {
-	let date = new Date();
-	date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-	let expires = '; expires=' + date.toGMTString();
+import Authentication from '../../authentication/authentication';
+import {isTokenSet, removeToken} from './tokens';
+import {Redirect} from 'react-router-dom';
 
-	document.cookie = name + '=' + value + expires + '; path=/';
+export const isLogged = () => isTokenSet() ? <Redirect to="/dashboard" /> : <Authentication />;
+export const privateRoute = component => isTokenSet() ? component : <Redirect to="/" />
+
+export const logout = () => {
+	console.log('token removed');
+	removeToken();
+	return <Redirect to="/" />
 }
-
-export const getToken = (name = 'tokenId') => {
-	let pair = document.cookie.split(';').find((c = '') => c.includes(`${name}=`));
-	return pair ? pair.split('=')[1] : null;
-}
-
-export const removeToken = (name = 'tokenId') => setToken('', name, -1);
-export const isTokenSet = (name = 'tokenId') => Boolean(getToken(name));

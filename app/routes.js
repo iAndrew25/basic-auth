@@ -1,16 +1,21 @@
 import {Switch, Route} from 'react-router-dom';
-import {isLogged, privateRoute, logout} from 'utils/auth';
+import {logoutRedirect} from './commons/utils/auth';
+import {isTokenSet} from './commons/utils/tokens';
+
 import Authentication from './authentication/authentication';
 import Dashboard from './dashboard/dashboard';
 
 export default function() {
-	console.log('routes');
+
+	const PrivateRoute = ({component: Component, ...rest}) => (
+		<Route {...rest} render={props => isTokenSet() ? <Component {...props} /> : <Authentication />} />
+	)
+
 	return(
 		<Switch>
-			<Route exact path='/' component={() => isLogged()}/>
-			<Route exact path='/logout' component={() => logout()}/>
-			<Route exact path='/dashboard' component={() => privateRoute(<Dashboard />)}/>
-			<Route component={() => (<div>404 - GTFO</div>)}/>
+			<PrivateRoute exact path='/' component={Dashboard} />
+			<Route exact path='/logout' component={() => logoutRedirect()} />			
+			<Route component={() => (<div>404 - GTFO</div>)} />
 		</Switch>
 	)
 }

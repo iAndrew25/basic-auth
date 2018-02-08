@@ -1,8 +1,8 @@
 import Login from './log-in/log-in';
 import Signup from './sign-up/sign-up';
-import {setToken} from 'utils/tokens';
 import {login, signup} from './authentication-service';
 import {Redirect} from 'react-router-dom';
+import {loginRedirect} from '../commons/utils/auth';
 
 export default class Authentication extends React.Component {
 	constructor(props) {
@@ -11,7 +11,8 @@ export default class Authentication extends React.Component {
 			displayLogin: false,
 			email: '',
 			password: '',
-			name: ''
+			name: '',
+			forceLogin: false
 		}
 
 		this.handleChange = this.handleChange.bind(this);
@@ -34,6 +35,7 @@ export default class Authentication extends React.Component {
 
 	handleLogin() {
 		let {email, password} = this.state;
+		loginRedirect('token', () => this.setState({forceLogin: true}));
 		// login(email, password).then(data => {
 		// 	console.log('login', data);
 		// 	setToken(data.token);
@@ -47,10 +49,11 @@ export default class Authentication extends React.Component {
 	}
 
 	render() {
-		let {email, name, password, toggleDisplay, displayLogin} = this.state;
+		let {email, name, password, toggleDisplay, displayLogin, forceLogin} = this.state;
+
+		if(forceLogin) return <Redirect to='/' />
 
 		return(
-
 			<div className="card border-primary authenticate-box">
 				<div className="card-body text-primary">
 					{displayLogin ? 

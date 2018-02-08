@@ -1,12 +1,11 @@
-import Authentication from '../../authentication/authentication';
-import {isTokenSet, removeToken} from './tokens';
-import {Redirect} from 'react-router-dom';
+import {setToken, removeToken} from './tokens';
 
-export const isLogged = () => isTokenSet() ? <Redirect to="/dashboard" /> : <Authentication />;
-export const privateRoute = component => isTokenSet() ? component : <Redirect to="/" />
-
-export const logout = () => {
-	console.log('token removed');
+export const logoutRedirect = (callback = () => {}) => {
 	removeToken();
-	return <Redirect to="/" />
+	callback();
+}
+
+export const loginRedirect = (token, callback = () => {}) => {
+	setToken(token);
+	callback();
 }

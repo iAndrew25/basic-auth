@@ -9,19 +9,19 @@ export default function({logout}) {
 			<div className="collapse navbar-collapse" id="navbarColor03">
 				<ul className="navbar-nav mr-auto">
 					<li className="nav-item active">
-					<a className="nav-link" href="#">Page 1</a>
+					<a className="nav-link blind" href="#">Page 1</a>
 					</li>
 						<li className="nav-item">
-					<a className="nav-link" href="#">Page 2</a>
+					<a className="nav-link blind" href="#">Page 2</a>
 						</li>
 					<li className="nav-item">
-						<a className="nav-link" href="#">Page 3</a>
+						<a className="nav-link blind" href="#">Page 3</a>
 					</li>
 					<li className="nav-item">
-						<a className="nav-link" href="#">Page 4</a>
+						<a className="nav-link blind" href="#">Page 4</a>
 					</li>
 				</ul>
-				<div className="my-2 my-lg-0" onClick={() => logout()}>Logout</div>
+				<div className="my-2 my-lg-0 blind" onClick={() => logout()}>Logout</div>
 			</div>
 		</nav>
 	)

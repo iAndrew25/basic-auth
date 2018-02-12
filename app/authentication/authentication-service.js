@@ -8,8 +8,8 @@ export function login(email, password) {
 }
 
 export function signup(email, name) {
-	return fetch(`/users/signup`, {
+	return fetch(`/signup.php`, {
 		method: 'POST',
 		body: JSON.stringify({email, name})
 	})
-}//aa - 3wualgpo
+}

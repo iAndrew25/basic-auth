@@ -3,6 +3,7 @@ import Signup from './sign-up/sign-up';
 import {login, signup} from './authentication-service';
 import {Redirect} from 'react-router-dom';
 import {loginRedirect} from '../commons/utils/auth';
+import {setToken} from '../commons/utils/tokens';
 
 export default class Authentication extends React.Component {
 	constructor(props) {
@@ -27,21 +28,24 @@ export default class Authentication extends React.Component {
 
 	handleSignup() {
 		let {email, name} = this.state;
-		// signup(email, name).then(data => {
-		// 	console.log('signup', data)
-		// 	inlineNotify.success(data.message);
-		// });
+		signup(email, name)
+			.then(data => {
+				console.log('signup', data)
+				//inlineNotify.success(data.message);
+			})
+			.catch(e => console.log(e));
 	}
 
 	handleLogin() {
 		let {email, password} = this.state;
-		//loginRedirect('token', () => this.setState({forceLogin: true}));
 		login(email, password).then(data => {
 			console.log('login', data);
-			//setToken(data.token);
+			setToken(data.token);
+			loginRedirect('token', () => this.setState({forceLogin: true}));
 			//setUser(data.user);
 			//this.setState({toLogin: data.success});
-		});
+		})
+		.catch(e => console.log(e));
 	}
 
 	handleChange(key, value) {

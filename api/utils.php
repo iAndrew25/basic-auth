@@ -1,39 +1,44 @@
 <?php
 	require_once('db.php');
 
-	function userExists($username) {
+	function signup($name, $email, $password, $token) {
 		global $con;
-		$username = sanitize($username);
-
-		return mysqli_num_rows(mysqli_query($con, "SELECT * FROM users WHERE email = '$username' OR username = '$username'")) == 1 ? true : false;
+		return mysqli_query($con, "INSERT INTO users(name, email, password, token) VALUES('$name', '$email', '$password', '$token')") ? true : false;
 	}
 
-	function login($username, $password) {
+	function userExists($email) {
 		global $con;
-		$username = sanitize($username);
-		$userID = userIDFromUsername($username);
+		$email = sanitize($email);
+
+		return mysqli_num_rows(mysqli_query($con, "SELECT * FROM users WHERE email = '$email'")) == 1 ? true : false;
+	}
+
+	function login($email, $password) {
+		global $con;
+		$email = sanitize($email);
+		$userID = userIdFromEmail($email);
 		$password = $password;//md5(sanitize($password));
 
-		return mysqli_num_rows(mysqli_query($con, "SELECT * FROM users WHERE (email = '$username' OR username = '$username') AND password = '$password'")) == 1 ? $userID : false;
+		return mysqli_num_rows(mysqli_query($con, "SELECT * FROM users WHERE email = '$email' AND password = '$password'")) == 1 ? $userID : false;
 	}
 
-	function userIDFromUsername($username) {
+	function userIdFromEmail($email) {
 		global $con;
-		$username = sanitize($username);
+		$email = sanitize($email);
 
-		return mysqli_fetch_array(mysqli_query($con, "SELECT id FROM users WHERE email = '$username' OR username = '$username'"), MYSQLI_ASSOC)['id'];
+		return mysqli_fetch_array(mysqli_query($con, "SELECT id FROM users WHERE email = '$email'"), MYSQLI_ASSOC)['id'];
 	}
 	
-	function userData($userID){
+	function userData($userID) {
 		global $con;
 		$userID = (int)$userID;
 
-		return mysqli_fetch_array(mysqli_query($con, "SELECT username, email, name, token FROM users WHERE id = $userID"), MYSQLI_ASSOC);
+		return mysqli_fetch_array(mysqli_query($con, "SELECT email, name, token FROM users WHERE id = $userID"), MYSQLI_ASSOC);
 	}
 
 	function sanitize($data) {
 		global $con;
-		return mysqli_real_escape_string($con, $data);	
+		return htmlspecialchars(mysqli_real_escape_string($con, $data));
 	}
 
 	function setResult($success, $message, $payload) {
@@ -42,6 +47,10 @@
 		$result->message = $message;
 		$result->payload = $payload;
 		return $result;
+	}
+
+	function generateRandomString() {
+		return bin2hex(random_bytes(5));
 	}
 
 ?>

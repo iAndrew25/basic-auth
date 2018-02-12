@@ -35,13 +35,13 @@ export default class Authentication extends React.Component {
 
 	handleLogin() {
 		let {email, password} = this.state;
-		loginRedirect('token', () => this.setState({forceLogin: true}));
-		// login(email, password).then(data => {
-		// 	console.log('login', data);
-		// 	setToken(data.token);
-		// 	setUser(data.user);
-		// 	this.setState({toLogin: data.success});
-		// });
+		//loginRedirect('token', () => this.setState({forceLogin: true}));
+		login(email, password).then(data => {
+			console.log('login', data);
+			//setToken(data.token);
+			//setUser(data.user);
+			//this.setState({toLogin: data.success});
+		});
 	}
 
 	handleChange(key, value) {

@@ -4,6 +4,7 @@ import {login, signup} from './authentication-service';
 import {Redirect} from 'react-router-dom';
 import {loginRedirect} from '../commons/utils/auth';
 import {setToken} from '../commons/utils/tokens';
+import {setUser} from '../commons/utils/user-data';
 
 export default class Authentication extends React.Component {
 	constructor(props) {
@@ -23,29 +24,24 @@ export default class Authentication extends React.Component {
 	}
 
 	toggleDisplay() {
-		this.setState(state => ({displayLogin: !state.displayLogin}));
+		this.setState(state => ({displayLogin: !state.displayLogin, signupResp: {}, loginResp: {}}));
 	}
 
 	handleSignup() {
 		let {email, name} = this.state;
 		signup(email, name)
-			.then(data => {
-				console.log('signup', data)
-				//inlineNotify.success(data.message);
-			})
-			.catch(e => console.log(e));
+			.then(signupResp => this.setState({signupResp, name: '', email: ''}))
+			.catch(signupResp => this.setState({signupResp}));
 	}
 
 	handleLogin() {
 		let {email, password} = this.state;
 		login(email, password).then(data => {
-			console.log('login', data);
 			setToken(data.token);
+			setUser(data.payload);
 			loginRedirect('token', () => this.setState({forceLogin: true}));
-			//setUser(data.user);
-			//this.setState({toLogin: data.success});
 		})
-		.catch(e => console.log(e));
+		.catch(loginResp => this.setState({loginResp}));
 	}
 
 	handleChange(key, value) {
@@ -53,7 +49,7 @@ export default class Authentication extends React.Component {
 	}
 
 	render() {
-		let {email, name, password, toggleDisplay, displayLogin, forceLogin} = this.state;
+		let {email, name, password, toggleDisplay, displayLogin, forceLogin, signupResp, loginResp} = this.state;
 
 		if(forceLogin) return <Redirect to='/' />
 
@@ -66,10 +62,12 @@ export default class Authentication extends React.Component {
 							password={password}
 							toggleDisplay={this.toggleDisplay}
 							handleLogin={this.handleLogin}
+							loginResp={loginResp}
 							handleChange={this.handleChange} /> : 
 						<Signup 
 							email={email}
 							name={name}
+							signupResp={signupResp}
 							toggleDisplay={this.toggleDisplay}
 							handleSignup={this.handleSignup}
 							handleChange={this.handleChange} />}

@@ -1,10 +1,15 @@
-export default function({email, name, handleChange, handleSignup, toggleDisplay}) {
+import classNames from 'classnames';
+
+export default function({email, name, handleChange, handleSignup, toggleDisplay, signupResp = {}}) {
+	let {success, message} = signupResp;
+
 	return(
 		<div>
 			<h1 className="center-text">Sign up</h1>
+			{message && <div className={classNames('alert', 'alert-dismissible', success ? 'alert-success' : 'alert-danger')}>{message}</div>}
 			<div className="form-group">
 				<label htmlFor="display-name">Display Name</label>
-				<input type="password" className="form-control" id="display-name" placeholder="Display Name" value={name} onChange={e => handleChange('name', e.target.value)}/>
+				<input type="text" className="form-control" id="display-name" placeholder="Display Name" value={name} onChange={e => handleChange('name', e.target.value)}/>
 			</div>
 			<div className="form-group">
 				<label htmlFor="signup-email">Email address</label>

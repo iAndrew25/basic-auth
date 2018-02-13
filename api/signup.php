@@ -21,7 +21,7 @@
 				if(signup($name, $email, $pass, $token)) {
 					//send email
 					http_response_code(200);
-					echo json_encode(setResult(true, 'Succesfuly registered.', null));
+					echo json_encode(setResult(true, 'Your account has been successfully created. You will receive the password on the provided e-mail. Please change it ASAP.', null));
 				} else {
 					http_response_code(500);
 					echo json_encode(setResult(false, 'Something happened.', null));

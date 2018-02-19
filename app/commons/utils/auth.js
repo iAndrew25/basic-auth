@@ -5,7 +5,7 @@ export const logoutRedirect = (callback = () => {}) => {
 	callback();
 }
 
-export const loginRedirect = (token, callback = () => {}) => {
+export const loginRedirect = (token = '', callback = () => {}) => {
 	setToken(token);
 	callback();
 }

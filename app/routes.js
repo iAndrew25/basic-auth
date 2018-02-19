@@ -1,7 +1,8 @@
 import {Switch, Route} from 'react-router-dom';
 import {logoutRedirect} from './commons/utils/auth';
 import {isTokenSet} from './commons/utils/tokens';
-import {getUser} from './commons/utils/user-data';
+import {getUser, setUser} from './commons/utils/user-data';
+import {getUserData} from './commons/utils/user-service';
 
 import Authentication from './authentication/authentication';
 import Dashboard from './dashboard/dashboard';
@@ -10,6 +11,7 @@ export default function() {
 	if(isTokenSet()) {
 		if(!getUser()) {
 			console.log('Request, bring user data!');
+			getUserData().then(({payload}) => setUser(payload));
 			// Implement service
 		}
 	}

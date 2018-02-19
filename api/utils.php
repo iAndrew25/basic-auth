@@ -1,5 +1,5 @@
 <?php
-	require_once('db.php');
+	require_once('database/connect.php');
 
 	function signup($name, $email, $password, $token) {
 		global $con;
@@ -34,6 +34,13 @@
 		$userID = (int)$userID;
 
 		return mysqli_fetch_array(mysqli_query($con, "SELECT email, name, token FROM users WHERE id = $userID"), MYSQLI_ASSOC);
+	}
+
+	function getUserByToken($token) {
+		global $con;
+		$token = sanitize($token);
+
+		return mysqli_fetch_array(mysqli_query($con, "SELECT email, name FROM users WHERE token = '$token'"), MYSQLI_ASSOC);
 	}
 
 	function sanitize($data) {

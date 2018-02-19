@@ -1,5 +1,5 @@
 <?php
-	require_once('db.php');
+	require_once('database/connect.php');
 	require_once('utils.php');
 
 	$request_body = file_get_contents('php://input');

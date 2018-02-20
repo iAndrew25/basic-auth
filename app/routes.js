@@ -9,10 +9,12 @@ import Dashboard from './dashboard/dashboard';
 
 export default function() {
 
-	const PrivateRoute = ({component: Component, ...rest}) => (
+	const PrivateRoute = ({component: Component, ...rest}) => {
+		console.log('private router accessed');
+
 		//request check if token is valid
-		<Route {...rest} render={props => isTokenSet() ? <Component {...props} /> : <Authentication />} />
-	)
+		return <Route {...rest} render={props => isTokenSet() ? <Component {...props} /> : <Authentication />} />
+	}
 
 	return (
 		<Switch>

@@ -12,6 +12,10 @@ export default class Body extends React.Component {
 		this.setState(nextProps);
 	}
 
+	componentDidMount() {
+		this.setState(this.props);
+	}
+
 	render() {
 		let {email, name} = this.state.user;
 		

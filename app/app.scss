@@ -1,4 +1,5 @@
 @import './authentication/authentication';
+@import './commons/components/overlay/overlay';
 
 .blind {
     -webkit-user-select: none;
@@ -6,4 +7,8 @@
     -ms-user-select: none;
     user-select: none;
     cursor: pointer;
+}
+
+.dashboard {
+	position: relative;
 }

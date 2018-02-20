@@ -8,15 +8,9 @@ import Authentication from './authentication/authentication';
 import Dashboard from './dashboard/dashboard';
 
 export default function() {
-	if(isTokenSet()) {
-		if(!getUser()) {
-			console.log('Request, bring user data!');
-			getUserData().then(({payload}) => setUser(payload));
-			// Implement service
-		}
-	}
 
 	const PrivateRoute = ({component: Component, ...rest}) => (
+		//request check if token is valid
 		<Route {...rest} render={props => isTokenSet() ? <Component {...props} /> : <Authentication />} />
 	)
 
